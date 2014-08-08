@@ -85,8 +85,6 @@ end
 
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
-  session[:user_id] = auth[:uid].to_i
-  session[:login] = true
   bot = Bot.first(:user_id => auth[:uid].to_i)
   if bot.nil?
     bot = Bot.create(
@@ -96,6 +94,8 @@ get "/auth/:provider/callback" do
       :token => auth[:credentials][:token],
       :secret => auth[:credentials][:secret])
   end
+  session[:user_id] = bot.user_id
+  session[:login] = true
   redirect "/bot/#{bot.id}", 302
 end
 
