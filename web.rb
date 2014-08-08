@@ -30,7 +30,15 @@ configure do
 end
 
 get '/' do
-  @bots = Bot.all
+  if session[:login]
+    me = Bot.first(:user_id => session[:user_id])
+    @bots = [me]
+    Management.all(:master => me).each do |m|
+      @bots << m.slave
+    end
+  else
+    @bots = []
+  end
   slim :index
 end
 
@@ -77,6 +85,8 @@ end
 
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
+  session[:user_id] = auth[:uid].to_i
+  session[:login] = true
   bot = Bot.create(
     :user_id => auth[:uid].to_i,
     :full_name => auth[:info][:name],
