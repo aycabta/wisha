@@ -1,6 +1,8 @@
 require 'bundler'
 require 'sinatra'
 require 'slim'
+require 'omniauth'
+require 'omniauth-twitter'
 require './model'
 
 configure :production do
@@ -11,6 +13,10 @@ end
 configure :test, :development do
   DataMapper.setup(:default, "yaml:///tmp/wisha")
   database_upgrade!
+end
+
+use OmniAuth::Builder do
+  provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
 end
 
 get '/' do
@@ -43,6 +49,12 @@ post '/bot/:id/add_tweet' do
   redirect "/bot/#{bot.id}", 302
 end
 
+get "/auth/:provider/callback" do
+  @auth = request.env["omniauth.auth"]
+  erb :home
+end
+
 set :root, File.dirname(__FILE__)
 enable :run
+enable :sessions
 
