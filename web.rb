@@ -99,3 +99,9 @@ get "/auth/:provider/callback" do
   redirect "/bot/#{bot.id}", 302
 end
 
+before do
+  if request.url =~ /^\/bot/ and not session[:logged_in]
+    redirect "/", 302
+  end
+end
+
