@@ -102,8 +102,17 @@ end
 
 before do
   uri = URI(request.url)
-  if uri.path =~ /^\/bot/ and not session[:logged_in]
-    redirect "/", 302
+  if uri.path =~ /^\/bot\/(\d+)\//
+    bot_id = $1.to_i
+    if session[:logged_in]
+      bot = Bot.get(bot_id)
+      me = Bot.first(:user_id => session[:user_id])
+      if Management.first(:master => me, :slave => bot).nil?
+        redirect "/", 302
+      end
+    else
+      redirect "/", 302
+    end
   end
 end
 
