@@ -102,7 +102,7 @@ end
 
 before do
   uri = URI(request.url)
-  if uri.path =~ /^\/bot\/(\d+)\//
+  if uri.path =~ /^\/bot\/(\d+)/
     bot_id = $1.to_i
     if session[:logged_in]
       bot = Bot.get(bot_id)
