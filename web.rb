@@ -55,7 +55,12 @@ post '/bot/:id/add_tweet' do
 end
 
 get "/auth/:provider/callback" do
-  @auth = request.env["omniauth.auth"]
-  slim :oauth_finished
+  auth = request.env["omniauth.auth"]
+  bot = Bot.create(
+    :full_name => auth[:extra][:raw_info][:name],
+    :screen_name => auth[:extra][:raw_info][:screen_name],
+    :token => auth[:credentials][:token],
+    :secret => [:credentials][:secret])
+  redirect "/bot/#{bot.id}", 302
 end
 
