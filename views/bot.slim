@@ -29,5 +29,8 @@ ul
     = "#{@bot.full_name} (@#{@bot.screen_name})"
     strong = " This bot-self."
   - for master in @bot.masters
-    li = "#{master.full_name} (@#{master.screen_name})"
+      form action="/bot/#{@bot.id}/del_master" method="POST"
+        input type="hidden" name="master_id" value="#{master.id}"
+        input type="submit" value="del"
+        li = "#{master.full_name} (@#{master.screen_name})"
 

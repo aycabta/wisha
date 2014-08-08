@@ -62,6 +62,14 @@ post '/bot/:id/add_master' do
   redirect "/bot/#{bot.id}", 302
 end
 
+post '/bot/:id/del_master' do
+  bot = Bot.get(params[:id])
+  master = Bot.get(params[:master_id])
+  bot.masters.delete(master)
+  bot.save
+  redirect "/bot/#{bot.id}", 302
+end
+
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
   bot = Bot.create(
