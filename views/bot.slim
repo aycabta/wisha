@@ -1,0 +1,16 @@
+h1 = "#{@bot.full_name} (@#{@bot.screen_name})"
+
+form action="/bot/#{@bot.id}/add_tweet" method="POST"
+  input type="text" name="text"
+  input type="submit" value="add tweet"
+
+hr
+
+ul
+  - for tweet in @bot.tweets
+    li
+      form action="/bot/#{@bot.id}/del_tweet" method="POST"
+        input type="hidden" name="tweet_id" value="#{tweet.id}"
+        input type="submit" value="del"
+        = tweet.text
+

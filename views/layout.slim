@@ -1,0 +1,14 @@
+doctype 5
+html
+  head
+    meta charset="UTF-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title Wisha
+    script src="//code.jquery.com/jquery-1.11.0.min.js"
+  body
+    #content
+      == yield
+
+      hr
+      p = "Powered by #{RUBY_DESCRIPTION}"
+

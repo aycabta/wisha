@@ -1,0 +1,7 @@
+h1 Wisha
+
+ul
+  - for bot in @bots
+    li
+      a href="/bot/#{bot.id}" = "#{bot.full_name} (@#{bot.screen_name})"
+
