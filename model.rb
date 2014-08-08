@@ -6,7 +6,7 @@ require 'twitter'
 class Bot
   include DataMapper::Resource
   property :id, Serial
-  property :user_id, Integer, :required => true
+  property :user_id, Decimal, :required => true
   property :full_name, String, :length => 256, :required => true
   property :screen_name, String, :length => 256, :required => true
   property :token, String, :length => 256, :required => true
