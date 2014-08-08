@@ -5,7 +5,7 @@ gem 'thin'
 gem 'dm-core'
 gem 'dm-migrations'
 gem 'slim'
-gem 'tilt'
+gem 'tilt', '~> 1.4.1'
 
 group :development, :test do
   gem 'rspec'
