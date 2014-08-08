@@ -48,5 +48,6 @@ DataMapper.finalize
 def database_upgrade!
   Bot.auto_upgrade!
   Tweet.auto_upgrade!
+  Management.auto_upgrade!
 end
 
