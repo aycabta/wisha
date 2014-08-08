@@ -107,7 +107,7 @@ before do
     if session[:logged_in]
       bot = Bot.get(bot_id)
       me = Bot.first(:user_id => session[:user_id])
-      if Management.first(:master => me, :slave => bot).nil?
+      if bot.id != me.id and Management.first(:master => me, :slave => bot).nil?
         redirect "/", 302
       end
     else
