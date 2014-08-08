@@ -28,6 +28,6 @@ ul
   li
     = "#{@bot.full_name} (@#{@bot.screen_name})"
     strong = " This bot-self."
-  - for master in @masters
+  - for master in @bot.masters
     li = "#{master.full_name} (@#{master.screen_name})"
 
