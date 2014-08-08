@@ -56,6 +56,6 @@ end
 
 get "/auth/:provider/callback" do
   @auth = request.env["omniauth.auth"]
-  erb :home
+  slim :oauth_finished
 end
 
