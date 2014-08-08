@@ -14,3 +14,18 @@ ul
         input type="submit" value="del"
         = tweet.text
 
+h2 = "Masters"
+
+form action="/bot/#{@bot.id}/add_master" method="POST"
+  input type="text" name="screen_name"
+  input type="submit" value="add master"
+
+hr
+
+ul
+  li
+    = "#{@bot.full_name} (@#{@bot.screen_name})"
+    strong = " This bot-self."
+  - for master in @masters
+    li = "#{master.full_name} (@#{master.screen_name})"
+

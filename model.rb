@@ -6,10 +6,13 @@ require 'twitter'
 class Bot
   include DataMapper::Resource
   property :id, Serial
+  property :user_id, Integer, :required => true
   property :full_name, String, :length => 256, :required => true
   property :screen_name, String, :length => 256, :required => true
   property :token, String, :length => 256, :required => true
   property :secret, String, :length => 256, :required => true
+  has n, :managements, :child_key => [ :slave_id ]
+  has n, :masters, self, :through => :managements, :via => :master
   has n, :tweets
 
   def init_client
@@ -25,6 +28,12 @@ class Bot
     tweet = self.tweets.sample
     @client.update(tweet.text)
   end
+end
+
+class Management
+  include DataMapper::Resource
+  belongs_to :master, 'Bot', :key => true
+  belongs_to :slave, 'Bot', :key => true
 end
 
 class Tweet

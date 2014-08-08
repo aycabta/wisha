@@ -31,6 +31,8 @@ end
 
 get '/bot/:id' do
   @bot = Bot.get(params[:id])
+  @masters = @bot.masters
+  logger.info @masters
   slim :bot
 end
 
@@ -54,9 +56,19 @@ post '/bot/:id/add_tweet' do
   redirect "/bot/#{bot.id}", 302
 end
 
+post '/bot/:id/add_master' do
+  bot = Bot.get(params[:id])
+  master = Bot.first(:screen_name => params[:screen_name])
+  bot.masters << master
+  logger.info bot.masters
+  bot.save
+  redirect "/bot/#{bot.id}", 302
+end
+
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
   bot = Bot.create(
+    :user_id => auth[:uid].to_i,
     :full_name => auth[:info][:name],
     :screen_name => auth[:info][:nickname],
     :token => auth[:credentials][:token],
