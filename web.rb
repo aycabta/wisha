@@ -19,6 +19,11 @@ configure do
   set :root, File.dirname(__FILE__)
   enable :run
   enable :sessions
+  use Rack::Session::Cookie,
+    :key => 'rack.session',
+    :path => '/',
+    :expire_after => 2592000,
+    :secret => ENV["SESSION_SECRET"]
   use OmniAuth::Builder do
     provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
   end
