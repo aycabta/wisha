@@ -15,8 +15,13 @@ configure :test, :development do
   database_upgrade!
 end
 
-use OmniAuth::Builder do
-  provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
+configure do
+  set :root, File.dirname(__FILE__)
+  enable :run
+  enable :sessions
+  use OmniAuth::Builder do
+    provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
+  end
 end
 
 get '/' do
@@ -53,8 +58,4 @@ get "/auth/:provider/callback" do
   @auth = request.env["omniauth.auth"]
   erb :home
 end
-
-set :root, File.dirname(__FILE__)
-enable :run
-enable :sessions
 
