@@ -57,13 +57,13 @@ end
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
   logger.info auth
-  logger.info auth[:raw_info][:name]
-  logger.info auth[:raw_info][:screen_name]
+  logger.info auth[:info][:name]
+  logger.info auth[:info][:nickname]
   logger.info auth[:credentials][:token]
   logger.info auth[:credentials][:secret]
   bot = Bot.create(
-    :full_name => auth[:raw_info][:name],
-    :screen_name => auth[:raw_info][:screen_name],
+    :full_name => auth[:info][:name],
+    :screen_name => auth[:info][:nickname],
     :token => auth[:credentials][:token],
     :secret => auth[:credentials][:secret])
   redirect "/bot/#{bot.id}", 302
