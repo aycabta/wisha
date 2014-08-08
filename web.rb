@@ -30,7 +30,7 @@ configure do
 end
 
 get '/' do
-  if session[:login]
+  if session[:logged_in]
     me = Bot.first(:user_id => session[:user_id])
     @bots = [me]
     Management.all(:master => me).each do |m|
@@ -95,7 +95,7 @@ get "/auth/:provider/callback" do
       :secret => auth[:credentials][:secret])
   end
   session[:user_id] = bot.user_id
-  session[:login] = true
+  session[:logged_in] = true
   redirect "/bot/#{bot.id}", 302
 end
 
