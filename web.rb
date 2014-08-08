@@ -61,7 +61,7 @@ get "/auth/:provider/callback" do
     :full_name => auth[:raw_info][:name],
     :screen_name => auth[:raw_info][:screen_name],
     :token => auth[:credentials][:token],
-    :secret => [:credentials][:secret])
+    :secret => auth[:credentials][:secret])
   redirect "/bot/#{bot.id}", 302
 end
 
