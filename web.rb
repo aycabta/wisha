@@ -3,6 +3,7 @@ require 'sinatra'
 require 'slim'
 require 'omniauth'
 require 'omniauth-twitter'
+require 'uri'
 require './model'
 
 configure :production do
@@ -100,7 +101,8 @@ get "/auth/:provider/callback" do
 end
 
 before do
-  if request.url =~ /^\/bot/ and not session[:logged_in]
+  uri = URI(request.url)
+  if uri.path =~ /^\/bot/ and not session[:logged_in]
     redirect "/", 302
   end
 end
