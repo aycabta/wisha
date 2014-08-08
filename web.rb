@@ -56,6 +56,7 @@ end
 
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
+  puts auth
   bot = Bot.create(
     :full_name => auth[:extra][:raw_info][:name],
     :screen_name => auth[:extra][:raw_info][:screen_name],
