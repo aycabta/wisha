@@ -4,8 +4,7 @@ h1 Wisha
   ul
     li
       a href="/bot/#{@me.id}" = "#{@me.full_name} (@#{@me.screen_name})"
-      " "
-      strong = "YOU"
+      strong = " YOU"
     - for bot in @bots
       li
         a href="/bot/#{bot.id}" = "#{bot.full_name} (@#{bot.screen_name})"
