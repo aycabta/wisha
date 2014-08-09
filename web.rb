@@ -105,7 +105,7 @@ get "/auth/:provider/callback" do
   end
   session[:user_id] = bot.user_id
   session[:logged_in] = true
-  redirect "/bot/#{bot.id}", 302
+  redirect "/", 302
 end
 
 before do
