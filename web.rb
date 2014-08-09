@@ -87,7 +87,13 @@ end
 get "/auth/:provider/callback" do
   auth = request.env["omniauth.auth"]
   bot = Bot.first(:user_id => auth[:uid].to_i)
-  if bot.nil?
+  if not bot.nil?
+    bot.update(
+      :full_name => auth[:info][:name],
+      :screen_name => auth[:info][:nickname],
+      :token => auth[:credentials][:token],
+      :secret => auth[:credentials][:secret])
+  else
     bot = Bot.create(
       :user_id => auth[:uid].to_i,
       :full_name => auth[:info][:name],
