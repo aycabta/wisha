@@ -26,8 +26,8 @@ hr
 
 ul
   li
-    = "#{@bot.full_name} (@#{@bot.screen_name})"
-    strong = " This bot-self."
+    = "#{@bot.full_name} (@#{@bot.screen_name}) "
+    strong = "YOU"
   - for master in @bot.masters
       li
         form action="/bot/#{@bot.id}/del_master" method="POST"

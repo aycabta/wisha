@@ -32,9 +32,9 @@ end
 
 get '/' do
   if session[:logged_in]
-    me = Bot.first(:user_id => session[:user_id])
-    @bots = [me]
-    Management.all(:master => me).each do |m|
+    @me = Bot.first(:user_id => session[:user_id])
+    @bots = []
+    Management.all(:master => @me).each do |m|
       @bots << m.slave
     end
   else
