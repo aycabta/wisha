@@ -6,8 +6,6 @@ form action="/bot/#{@bot.id}/add_tweet" method="POST"
   input type="text" name="text"
   input type="submit" value="add tweet"
 
-hr
-
 ul
   - for tweet in @bot.tweets
     li
@@ -16,10 +14,10 @@ ul
         input type="submit" value="del"
         = tweet.text
 
-hr
-
 form action="/bot/#{@bot.id}/tweet" method="POST"
   input type="submit" value="tweet random"
+
+hr class="great-separate"
 
 h2 = "Masters"
 
