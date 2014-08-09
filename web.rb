@@ -22,6 +22,7 @@ configure do
   set :public_folder, "#{File.dirname(__FILE__)}/public"
   enable :run
   enable :sessions
+  set :session_secret, ENV["SESSION_SECRET"]
   use Rack::Session::Cookie,
     :key => 'rack.session',
     :path => '/',
