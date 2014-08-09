@@ -8,9 +8,7 @@ h1 Wisha
     - for bot in @bots
       li
         a href="/bot/#{bot.id}" = "#{bot.full_name} (@#{bot.screen_name})"
-  hr
-
-- if @bots.empty?
+- else
   p
     a href="/auth/twitter" = "Log-in with Twitter for botization"
 
