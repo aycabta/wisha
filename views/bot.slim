@@ -16,6 +16,11 @@ ul
         input type="submit" value="del"
         = tweet.text
 
+hr
+
+form action="/bot/#{@bot.id}/tweet" method="POST"
+  input type="submit" value="tweet random"
+
 h2 = "Masters"
 
 form action="/bot/#{@bot.id}/add_master" method="POST"

@@ -48,7 +48,7 @@ get '/bot/:id' do
   slim :bot
 end
 
-get '/bot/:id/tweet' do
+post '/bot/:id/tweet' do
   bot = Bot.get(params[:id])
   bot.init_client
   bot.tweet_random
