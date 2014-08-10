@@ -36,6 +36,7 @@ class Bot
       if response.code == "200"
         temp = Tempfile.new('No')
         temp.write(response.body)
+        temp.seek(0)
         temp.to_io
       else
         nil
