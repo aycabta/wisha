@@ -42,10 +42,10 @@ class Bot
         bot.tweet_random
         bot.last_tweeted_at = DateTime.now
         bot.save
-      else DateTime.new > (bot.last_tweeted_at.to_time + bot.interval_minutes).to_datetime
+      else DateTime.new > (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
         bot.init_client
         bot.tweet_random
-        bot.last_tweeted_at = (bot.last_tweeted_at.to_time + bot.interval_minutes).to_datetime
+        bot.last_tweeted_at = (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
         bot.save
       end
     end
