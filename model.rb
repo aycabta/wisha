@@ -49,7 +49,7 @@ class Bot
   def tweet_random
     if not self.tweets.empty?
       tweet = self.tweets.sample
-      if tweet =~ %r{(https?://.+(?:gif|png|jpg|jpeg))$}i
+      if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
         media = get_io_from_url($1)
         if not media.nil?
           @client.update_with_media(tweet.text, media)
