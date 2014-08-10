@@ -109,6 +109,19 @@ get "/auth/:provider/callback" do
   redirect "/", 302
 end
 
+post '/bot/:id/set_interval' do
+  if params[:minutes] =~ /^\d+$/
+    bot = Bot.get(params[:id])
+    bot.interval_minutes = params[:minutes]
+    bot.save
+  end
+  redirect "/bot/#{bot.id}", 302
+end
+
+get "/goose" do
+  Bot.tweet_random_all
+end
+
 before do
   uri = URI(request.url)
   if uri.path =~ /^\/bot\/(\d+)/

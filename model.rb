@@ -11,6 +11,8 @@ class Bot
   property :screen_name, String, :length => 256, :required => true
   property :token, String, :length => 256, :required => true
   property :secret, String, :length => 256, :required => true
+  property :interval_minutes, Integer, :default => 30, :required => true
+  property :last_tweeted_at, DateTime, :default => 30
   has n, :managements, :child_key => [ :slave_id ]
   has n, :masters, self, :through => :managements, :via => :master
   has n, :tweets
@@ -29,6 +31,22 @@ class Bot
   def tweet_random
     tweet = self.tweets.sample
     @client.update(tweet.text)
+  end
+
+  def self.tweet_random_all
+    self.all.each do |bot|
+      if bot.last_tweeted_at.nil?
+        bot.init_client
+        bot.tweet_random
+        bot.last_tweeted_at = DateTime.now
+        bot.save
+      else DateTime.new > (bot.last_tweeted_at.to_time + bot.interval_minutes).to_datetime
+        bot.init_client
+        bot.tweet_random
+        bot.last_tweeted_at = (bot.last_tweeted_at.to_time + bot.interval_minutes).to_datetime
+        bot.save
+      end
+    end
   end
 end
 
