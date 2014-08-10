@@ -16,11 +16,13 @@ class Bot
   has n, :tweets
 
   def init_client
-    @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = ENV["API_KEY"]
-      config.consumer_secret     = ENV["API_SECRET"]
-      config.access_token        = self.token
-      config.access_token_secret = self.secret
+    if @client.nil?
+      @client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV["API_KEY"]
+        config.consumer_secret     = ENV["API_SECRET"]
+        config.access_token        = self.token
+        config.access_token_secret = self.secret
+      end
     end
   end
 
