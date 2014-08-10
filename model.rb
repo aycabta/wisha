@@ -52,7 +52,7 @@ class Bot
       if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
         media = get_io_from_url($1)
         if not media.nil?
-          @client.update_with_media(tweet.text, media)
+          @client.update_with_media(tweet.text.sub(%r{ *https?://.+\.(?:gif|png|jpg|jpeg)$}i, ''), media)
         else
           @client.update(tweet.text)
         end
