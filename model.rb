@@ -29,8 +29,10 @@ class Bot
   end
 
   def tweet_random
-    tweet = self.tweets.sample
-    @client.update(tweet.text)
+    if not self.tweets.empty? and self.interval_minutes != 0
+      tweet = self.tweets.sample
+      @client.update(tweet.text)
+    end
   end
 
   def self.tweet_random_all
