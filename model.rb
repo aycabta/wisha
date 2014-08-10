@@ -36,16 +36,17 @@ class Bot
   end
 
   def self.tweet_random_all
+    now = DateTime.now
     self.all.each do |bot|
       if bot.last_tweeted_at.nil?
         bot.init_client
         bot.tweet_random
-        bot.last_tweeted_at = DateTime.now
+        bot.last_tweeted_at = now
         bot.save
-      else DateTime.new > (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
+      else now > (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
         bot.init_client
         bot.tweet_random
-        bot.last_tweeted_at = (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
+        bot.last_tweeted_at = now
         bot.save
       end
     end
