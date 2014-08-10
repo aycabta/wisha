@@ -12,7 +12,7 @@ class Bot
   property :token, String, :length => 256, :required => true
   property :secret, String, :length => 256, :required => true
   property :interval_minutes, Integer, :default => 30, :required => true
-  property :last_tweeted_at, DateTime, :default => 30
+  property :last_tweeted_at, DateTime
   has n, :managements, :child_key => [ :slave_id ]
   has n, :masters, self, :through => :managements, :via => :master
   has n, :tweets
