@@ -44,7 +44,7 @@ class Bot
           bot.tweet_random
           bot.last_tweeted_at = now
           bot.save
-        else now > (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
+        elsif now > (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
           bot.init_client
           bot.tweet_random
           bot.last_tweeted_at = now
