@@ -2,6 +2,8 @@ require 'bundler'
 require 'dm-core'
 require 'dm-migrations'
 require 'twitter'
+require 'tempfile'
+require 'net/http'
 
 class Bot
   include DataMapper::Resource
@@ -28,10 +30,34 @@ class Bot
     end
   end
 
+  def get_io_from_url(url)
+    begin
+      response = Net::HTTP.get_response(URI(url))
+      if response.code == "200"
+        temp = Tempfile.new('No')
+        temp.write(response.body)
+        temp.to_io
+      else
+        nil
+      end
+    rescue StandardError => e
+      nil
+    end
+  end
+
   def tweet_random
     if not self.tweets.empty?
       tweet = self.tweets.sample
-      @client.update(tweet.text)
+      if tweet =~ %r{(https?://.+(?:gif|png|jpg|jpeg))$}i
+        media = get_io_from_url($1)
+        if not media.nil?
+          @client.update_with_media(tweet.text, media)
+        else
+          @client.update(tweet.text)
+        end
+      else
+        @client.update(tweet.text)
+      end
     end
   end
 
