@@ -4,15 +4,15 @@ html
     meta charset="UTF-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
     - if @title.nil?
-      title "Wisha"
+      title Wisha
     - else
-      title "#{@title} - Wisha"
+      title #{@title} - Wisha
     link rel="stylesheet" href="/main.css"
   body
     - if @title.nil?
-      h1 "Wisha"
+      h1 Wisha
     - else
-      h1 "#{@title} - Wisha"
+      h1 #{@title} - Wisha
     #content
       == yield
 
