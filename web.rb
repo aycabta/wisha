@@ -48,6 +48,7 @@ end
 
 get '/bot/:id' do
   @bot = Bot.get(params[:id])
+  @title = "#{@bot.full_name} (@#{@bot.screen_name})"
   slim :bot
 end
 

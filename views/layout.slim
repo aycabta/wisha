@@ -3,7 +3,10 @@ html
   head
     meta charset="UTF-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    title Wisha
+    - if @title.nil?
+      title "Wisha"
+    - else
+      title "#{@title} - Wisha"
     link rel="stylesheet" href="/main.css"
   body
     #content
@@ -11,4 +14,9 @@ html
 
       hr class="great-separate"
       p = "Powered by #{RUBY_DESCRIPTION}"
+
+- if @title.nil?
+  h1 "Wisha"
+- else
+  h1 "#{@title} - Wisha"
 
