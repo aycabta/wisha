@@ -8,7 +8,8 @@ hr class="great-separate"
 h2 = "Tweet samples"
 
 form action="/bot/#{@bot.id}/add_tweet" method="POST"
-  input type="text" name="text"
+  input type="text" name="text" id="tweet-text"
+  br
   input type="submit" value="add tweet"
 
 ul
