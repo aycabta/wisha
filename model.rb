@@ -47,18 +47,21 @@ class Bot
   end
 
   def tweet_random
-    if not self.tweets.empty?
-      tweet = self.tweets.sample
-      if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
-        media = get_io_from_url($1)
-        if not media.nil?
-          @client.update_with_media(tweet.text.sub(%r{ *https?://.+\.(?:gif|png|jpg|jpeg)$}i, ''), media)
+    begin
+      if not self.tweets.empty?
+        tweet = self.tweets.sample
+        if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
+          media = get_io_from_url($1)
+          if not media.nil?
+            @client.update_with_media(tweet.text.sub(%r{ *https?://.+\.(?:gif|png|jpg|jpeg)$}i, ''), media)
+          else
+            @client.update(tweet.text)
+          end
         else
           @client.update(tweet.text)
         end
-      else
-        @client.update(tweet.text)
       end
+    rescue StandardError => e
     end
   end
 
