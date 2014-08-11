@@ -9,14 +9,13 @@ html
       title "#{@title} - Wisha"
     link rel="stylesheet" href="/main.css"
   body
+    - if @title.nil?
+      h1 "Wisha"
+    - else
+      h1 "#{@title} - Wisha"
     #content
       == yield
 
       hr class="great-separate"
       p = "Powered by #{RUBY_DESCRIPTION}"
-
-- if @title.nil?
-  h1 "Wisha"
-- else
-  h1 "#{@title} - Wisha"
 
