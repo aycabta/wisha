@@ -69,17 +69,19 @@ class Bot
     now = DateTime.now
     self.all.each do |bot|
       if bot.interval_minutes != 0
-        next_time = (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
         if bot.last_tweeted_at.nil?
           bot.init_client
           bot.tweet_random
           bot.last_tweeted_at = now
           bot.save
-        elsif now > next_time
-          bot.init_client
-          bot.tweet_random
-          bot.last_tweeted_at = next_time
-          bot.save
+        else
+          next_time = (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
+          if now > next_time
+            bot.init_client
+            bot.tweet_random
+            bot.last_tweeted_at = next_time
+            bot.save
+          end
         end
       end
     end
