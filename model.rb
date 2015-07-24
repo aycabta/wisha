@@ -63,7 +63,9 @@ class Bot
       end
     rescue StandardError => e
       puts e.message
-      puts e.backtrace
+      e.backtrace.each do |b|
+        puts b
+      end
     end
   end
 
