@@ -88,7 +88,7 @@ class Bot
           if now > next_time
             bot.init_client
             if !bot.tweet_random.nil?
-              bot.last_tweeted_at = now
+              bot.last_tweeted_at = next_time
               bot.save
             end
           end
