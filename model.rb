@@ -60,14 +60,16 @@ class Bot
         else
           @client.update(tweet.text)
         end
-        bot.last_tweeted_at = now
-        bot.save
+        true
+      else
+        nil
       end
     rescue StandardError => e
       puts e.message
       e.backtrace.each do |b|
         puts b
       end
+      nil
     end
   end
 
@@ -77,12 +79,18 @@ class Bot
       if bot.interval_minutes != 0
         if bot.last_tweeted_at.nil?
           bot.init_client
-          bot.tweet_random
+          if !bot.tweet_random.nil?
+            bot.last_tweeted_at = now
+            bot.save
+          end
         else
           next_time = (bot.last_tweeted_at.to_time + bot.interval_minutes * 60).to_datetime
           if now > next_time
             bot.init_client
-            bot.tweet_random
+            if !bot.tweet_random.nil?
+              bot.last_tweeted_at = now
+              bot.save
+            end
           end
         end
       end
