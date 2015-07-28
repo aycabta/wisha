@@ -65,6 +65,7 @@ class Bot
         nil
       end
     rescue StandardError => e
+      puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
       puts e.message
       e.backtrace.each do |b|
         puts b
