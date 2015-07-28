@@ -11,6 +11,7 @@ class Bot
   property :user_id, Decimal, :required => true
   property :full_name, String, :length => 256, :required => true
   property :screen_name, String, :length => 256, :required => true
+  property :is_valid, String, :boolean => 256, :default => true, :required => true
   property :token, String, :length => 256, :required => true
   property :secret, String, :length => 256, :required => true
   property :interval_minutes, Integer, :default => 0, :required => true
@@ -48,7 +49,7 @@ class Bot
 
   def tweet_random
     begin
-      if not self.tweets.empty?
+      if self.is_valid and not self.tweets.empty?
         tweet = self.tweets.sample
         if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
           media = get_io_from_url($1)
@@ -64,6 +65,9 @@ class Bot
       else
         nil
       end
+    rescue Twitter::Error::Unauthorized => e
+      self.is_valid = false
+      nil
     rescue StandardError => e
       puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
       puts e.message

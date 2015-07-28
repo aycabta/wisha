@@ -96,7 +96,8 @@ get "/auth/:provider/callback" do
       :full_name => auth[:info][:name],
       :screen_name => auth[:info][:nickname],
       :token => auth[:credentials][:token],
-      :secret => auth[:credentials][:secret])
+      :secret => auth[:credentials][:secret],
+      :is_valid => true)
   else
     bot = Bot.create(
       :user_id => auth[:uid].to_i,
