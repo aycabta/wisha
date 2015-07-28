@@ -70,10 +70,10 @@ class Bot
     nil
   rescue StandardError => e
     case e.code
-    when Twitter::Error::SUSPENDED_ACCOUNT
+    when Twitter::Error::Code::SUSPENDED_ACCOUNT
       self.is_valid = false
       self.save
-    when Twitter::Error::INVALID_OR_EXPIRED_TOKEN
+    when Twitter::Error::Code::INVALID_OR_EXPIRED_TOKEN
       self.is_valid = false
       self.save
     else
