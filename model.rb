@@ -69,10 +69,19 @@ class Bot
     self.save
     nil
   rescue StandardError => e
-    puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
-    puts e.message
-    e.backtrace.each do |b|
-      puts b
+    case e.code
+    when Twitter::Error::SUSPENDED_ACCOUNT
+      self.is_valid = false
+      self.save
+    when Twitter::Error::INVALID_OR_EXPIRED_TOKEN
+      self.is_valid = false
+      self.save
+    else
+      puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
+      puts e.message
+      e.backtrace.each do |b|
+        puts b
+      end
     end
     nil
   end
