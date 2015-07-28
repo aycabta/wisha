@@ -66,6 +66,7 @@ class Bot
     end
   rescue Twitter::Error::Unauthorized => e
     self.is_valid = false
+    self.save
     nil
   rescue StandardError => e
     puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
