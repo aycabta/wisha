@@ -11,7 +11,7 @@ class Bot
   property :user_id, Decimal, :required => true
   property :full_name, String, :length => 256, :required => true
   property :screen_name, String, :length => 256, :required => true
-  property :is_valid, String, :boolean => 256, :default => true, :required => true
+  property :is_valid, Boolean, :default => true, :required => true
   property :token, String, :length => 256, :required => true
   property :secret, String, :length => 256, :required => true
   property :interval_minutes, Integer, :default => 0, :required => true
