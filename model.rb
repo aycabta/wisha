@@ -48,34 +48,32 @@ class Bot
   end
 
   def tweet_random
-    begin
-      if self.is_valid and not self.tweets.empty?
-        tweet = self.tweets.sample
-        if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
-          media = get_io_from_url($1)
-          if not media.nil?
-            @client.update_with_media(tweet.text.sub(%r{ *https?://.+\.(?:gif|png|jpg|jpeg)$}i, ''), media)
-          else
-            @client.update(tweet.text)
-          end
+    if self.is_valid and not self.tweets.empty?
+      tweet = self.tweets.sample
+      if tweet.text =~ %r{(https?://.+\.(?:gif|png|jpg|jpeg))$}i
+        media = get_io_from_url($1)
+        if not media.nil?
+          @client.update_with_media(tweet.text.sub(%r{ *https?://.+\.(?:gif|png|jpg|jpeg)$}i, ''), media)
         else
           @client.update(tweet.text)
         end
-        true
       else
-        nil
+        @client.update(tweet.text)
       end
-    rescue Twitter::Error::Unauthorized => e
-      self.is_valid = false
-      nil
-    rescue StandardError => e
-      puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
-      puts e.message
-      e.backtrace.each do |b|
-        puts b
-      end
+      true
+    else
       nil
     end
+  rescue Twitter::Error::Unauthorized => e
+    self.is_valid = false
+    nil
+  rescue StandardError => e
+    puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
+    puts e.message
+    e.backtrace.each do |b|
+      puts b
+    end
+    nil
   end
 
   def self.tweet_random_all
