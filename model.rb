@@ -69,6 +69,9 @@ class Bot
     self.save
     nil
   rescue StandardError => e
+    # Codes are here:
+    # https://dev.twitter.com/overview/api/response-codes
+    # http://www.rubydoc.info/gems/twitter/Twitter/Error/Code
     case e.code
     when Twitter::Error::Code::SUSPENDED_ACCOUNT
       self.is_valid = false
