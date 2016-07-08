@@ -91,7 +91,7 @@ class Bot
 
   def self.tweet_random_all
     now = DateTime.now
-    self.all.each do |bot|
+    self.all(:conditions => [ '(SELECT COUNT(id) FROM tweets WHERE bot_id = bots.id) > 0' ]).each do |bot|
       if bot.interval_minutes != 0
         if bot.last_tweeted_at.nil?
           bot.init_client
