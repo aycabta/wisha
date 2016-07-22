@@ -8,7 +8,7 @@ require 'net/http'
 class Bot
   include DataMapper::Resource
   property :id, Serial
-  property :user_id, Decimal, :required => true
+  property :user_id, Decimal, :precision => 20, :required => true
   property :full_name, String, :length => 256, :required => true
   property :screen_name, String, :length => 256, :required => true
   property :is_valid, Boolean, :default => true, :required => true
