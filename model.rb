@@ -80,7 +80,10 @@ class Bot
       self.is_valid = false
       self.save
     else
-      puts "ERROR!: #{user_id} #{screen_name} #{tweet.nil? ? '' : tweet.text}"
+      puts "ERROR!: code is #{e.code}"
+      puts "user_id: #{user_id}"
+      puts "screen_name : #{screen_name}"
+      puts "tweet text: #{tweet.nil? ? '' : tweet.text}"
       puts e.message
       e.backtrace.each do |b|
         puts b
