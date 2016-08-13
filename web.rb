@@ -46,6 +46,10 @@ get '/' do
   slim :index
 end
 
+post '/logout' do
+  session[:logged_in] = false
+end
+
 get '/bot/:id' do
   @bot = Bot.get(params[:id])
   @title = "#{@bot.full_name} (@#{@bot.screen_name})"

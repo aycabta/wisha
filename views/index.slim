@@ -6,6 +6,8 @@
     - for bot in @bots
       li
         a href="/bot/#{bot.id}" = "#{bot.full_name} (@#{bot.screen_name})"
+  form action="/logout" method="POST"
+    input type="submit" value="logout"
 - else
   p
     a href="/auth/twitter" = "Log-in with Twitter for botization"
