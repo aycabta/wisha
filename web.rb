@@ -48,6 +48,7 @@ end
 
 post '/logout' do
   session[:logged_in] = false
+  redirect "/", 302
 end
 
 get '/bot/:id' do
