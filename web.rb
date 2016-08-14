@@ -47,7 +47,7 @@ get '/' do
 end
 
 post '/logout' do
-  session[:logged_in] = false
+  session.clear
   redirect "/", 302
 end
 
