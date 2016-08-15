@@ -26,7 +26,7 @@ configure do
   use Rack::Session::Cookie,
     :key => 'rack.session',
     :path => '/',
-    :expire_after => 2592000,
+    :expire_after => 60 * 60 * 24 * 90,
     :secret => ENV["SESSION_SECRET"]
   use OmniAuth::Builder do
     provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
