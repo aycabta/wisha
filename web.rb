@@ -33,6 +33,10 @@ configure do
   end
 end
 
+def redirect_to_top
+  redirect "/", 302
+end
+
 get '/' do
   if session[:logged_in]
     @me = Bot.first(:user_id => session[:user_id])
@@ -48,7 +52,7 @@ end
 
 post '/logout' do
   session.clear
-  redirect "/", 302
+  redirect_to_top
 end
 
 get '/bot/:id' do
@@ -113,7 +117,7 @@ get "/auth/:provider/callback" do
   end
   session[:user_id] = bot.user_id
   session[:logged_in] = true
-  redirect "/", 302
+  redirect_to_top
 end
 
 post '/bot/:id/set_interval' do
@@ -137,10 +141,10 @@ before do
       bot = Bot.get(bot_id)
       me = Bot.first(:user_id => session[:user_id])
       if bot.id != me.id and Management.first(:master => me, :slave => bot).nil?
-        redirect "/", 302
+        redirect_to_top
       end
     else
-      redirect "/", 302
+      redirect_to_top
     end
   end
 end
