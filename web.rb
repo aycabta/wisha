@@ -37,6 +37,10 @@ def redirect_to_top
   redirect "/", 302
 end
 
+def redirect_to_bot(bot)
+  redirect "/bot/#{bot.id}", 302
+end
+
 get '/' do
   if session[:logged_in]
     @me = Bot.first(:user_id => session[:user_id])
@@ -65,20 +69,20 @@ post '/bot/:id/tweet' do
   bot = Bot.get(params[:id])
   bot.init_client
   bot.tweet_random
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 post '/bot/:id/del_tweet' do
   bot = Bot.get(params[:id])
   tweet = Tweet.first(:bot => bot, :id => params[:tweet_id])
   tweet.destroy
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 post '/bot/:id/add_tweet' do
   bot = Bot.get(params[:id])
   Tweet.create(:bot => bot, :text => params[:text])
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 post '/bot/:id/add_master' do
@@ -86,7 +90,7 @@ post '/bot/:id/add_master' do
   master = Bot.first(:screen_name => params[:screen_name])
   bot.masters << master
   bot.save
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 post '/bot/:id/del_master' do
@@ -94,7 +98,7 @@ post '/bot/:id/del_master' do
   master = Bot.get(params[:master_id])
   bot.masters.delete(master)
   bot.save
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 get "/auth/:provider/callback" do
@@ -126,7 +130,7 @@ post '/bot/:id/set_interval' do
     bot.interval_minutes = params[:minutes]
     bot.save
   end
-  redirect "/bot/#{bot.id}", 302
+  redirect_to_bot(bot)
 end
 
 get "/goose" do
