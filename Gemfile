@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'twitter'
+gem 'twitter', :git => 'git://github.com/aycabta/twitter.git', :branch => 'backport-video-support-from-v6'
 gem 'sinatra'
 gem 'thin'
 gem 'dm-core'
