@@ -35,7 +35,7 @@ class Bot
     begin
       response = Net::HTTP.get_response(URI(url))
       if response.code == "200"
-        temp = Tempfile.new('No')
+        temp = Tempfile.new('No', :encoding => 'ascii-8bit')
         temp.write(response.body)
         temp.seek(0)
         temp.to_io
