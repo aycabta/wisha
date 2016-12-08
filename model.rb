@@ -138,4 +138,3 @@ def database_upgrade!
   Tweet.auto_upgrade!
   Management.auto_upgrade!
 end
-

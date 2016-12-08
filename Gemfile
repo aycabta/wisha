@@ -19,4 +19,3 @@ group :production do
 end
 
 ruby '2.3.3'
-

@@ -8,4 +8,3 @@ This is a Twitter bot system, wisha.
 * API_KEY
 * API_SECRET
 * SESSION_SECRET
-
