@@ -31,7 +31,7 @@ class Bot
     end
   end
 
-  def get_io_from_url(url)
+  private def get_io_from_url(url)
     begin
       open(url)
     rescue StandardError => e
