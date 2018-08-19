@@ -39,7 +39,7 @@ GEM
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     multipart-post (2.0.0)
-    mustermann (1.0.2)
+    mustermann (1.0.3)
     naught (1.1.0)
     oauth (0.5.4)
     omniauth (1.8.1)
@@ -51,7 +51,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    public_suffix (3.0.2)
+    public_suffix (3.0.3)
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
