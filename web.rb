@@ -7,12 +7,12 @@ require 'uri'
 require './model'
 
 configure :production do
-  DataMapper.setup(:default, ENV["DATABASE_URL"])
+  DataMapper.setup(:default, ENV['DATABASE_URL'])
   database_upgrade!
 end
 
 configure :test, :development do
-  DataMapper.setup(:default, "yaml:///tmp/wisha")
+  DataMapper.setup(:default, 'yaml:///tmp/wisha')
   database_upgrade!
 end
 
@@ -22,19 +22,19 @@ configure do
   set :public_folder, "#{File.dirname(__FILE__)}/public"
   enable :run
   enable :sessions
-  set :session_secret, ENV["SESSION_SECRET"]
+  set :session_secret, ENV['SESSION_SECRET']
   use Rack::Session::Cookie,
     :key => 'rack.session',
     :path => '/',
     :expire_after => 60 * 60 * 24 * 90,
-    :secret => ENV["SESSION_SECRET"]
+    :secret => ENV['SESSION_SECRET']
   use OmniAuth::Builder do
-    provider :twitter, ENV["API_KEY"], ENV["API_SECRET"]
+    provider :twitter, ENV['API_KEY'], ENV['API_SECRET']
   end
 end
 
 def redirect_to_top
-  redirect "/", 302
+  redirect '/', 302
 end
 
 def redirect_to_bot(bot)
@@ -101,8 +101,8 @@ post '/bot/:id/del_master' do
   redirect_to_bot(bot)
 end
 
-get "/auth/:provider/callback" do
-  auth = request.env["omniauth.auth"]
+get '/auth/:provider/callback' do
+  auth = request.env['omniauth.auth']
   bot = Bot.first(:user_id => auth[:uid].to_i)
   if not bot.nil?
     bot.update(
@@ -133,7 +133,7 @@ post '/bot/:id/set_interval' do
   redirect_to_bot(bot)
 end
 
-get "/goose" do
+get '/goose' do
   Bot.tweet_random_all
 end
 
