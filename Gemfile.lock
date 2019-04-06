@@ -52,7 +52,7 @@ GEM
       omniauth-oauth (~> 1.1)
       rack
     public_suffix (3.0.3)
-    rack (2.0.6)
+    rack (2.0.7)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
@@ -119,7 +119,7 @@ DEPENDENCIES
   twitter
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 2.6.2p47
 
 BUNDLED WITH
    1.17.2
